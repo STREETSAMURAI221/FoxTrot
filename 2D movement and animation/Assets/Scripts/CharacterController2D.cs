@@ -19,6 +19,9 @@ public class CharacterController2D : MonoBehaviour
 	public bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 m_Velocity = Vector3.zero;
 
+	private Vector3 respawnPoint;
+
+
 	//for adding hangtime
 	public float hangTime = 10f;
 	private float hangCounter;
@@ -35,6 +38,7 @@ public class CharacterController2D : MonoBehaviour
 	public ParticleSystem impactEffect;
 	private bool wasOnGround;
 	public GameObject platform;
+
 
 	//Teleport
 
@@ -74,6 +78,7 @@ public class CharacterController2D : MonoBehaviour
 
 	private void Start()
 	{
+		respawnPoint = transform.position;
 		footEmission = footsteps.emission;
 	}
 
@@ -137,24 +142,22 @@ public class CharacterController2D : MonoBehaviour
 				if (!wasGrounded)
 					OnLandEvent.Invoke();
 			}
-			//while (colliders[i].gameObject == platform && m_Grounded)
-            {
-			//	gameObject.transform.parent = platform.transform; 
-            }
+		
 		}
 	}
 
-    //if (_canDash) StartCoroutine(Dash(_horizontalDirection, _verticalDirection)); 
-    //if (!_isDashing)
 
 
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.gameObject.CompareTag("Gems"))
+        if(collision.CompareTag("Obstacle"))
         {
-			Destroy(other.gameObject);
+			transform.position = respawnPoint;
         }
+
+  
+
     }
 
 

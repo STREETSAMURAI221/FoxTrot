@@ -16,9 +16,10 @@ public class gemManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        score = winAmount;
+        Debug.Log("score =" + score.ToString());
+        
         toWin.text = "/" + winAmount.ToString();
-       
+        
 
        if (instance == null)
         {
@@ -29,6 +30,7 @@ public class gemManager : MonoBehaviour
 
     public void ChangeScore(int gemValue)
     {
+        Debug.Log("ChangeScore");
         score += gemValue;
         scoreText.text = score.ToString();
 

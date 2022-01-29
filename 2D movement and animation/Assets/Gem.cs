@@ -8,21 +8,33 @@ public class Gem : MonoBehaviour
     
 
     private bool destroyed = false;
-    private void OnDestroy()
+ 
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        gemManager.instance.ChangeScore(gemValue);
-        destroyed = false;
-    }
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-       if(other.gameObject.CompareTag("Player") && destroyed == false )
+       if(collision.CompareTag("Player") && destroyed == false )
         {
+            Debug.Log("OnTriggerEnter2d");
             destroyed = true;
             Debug.Log("this should only happen once");
             Destroy(gameObject);
         }
     }
-    
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log("destroyed");
+        gemManager.instance.ChangeScore(gemValue);
+        destroyed = false;
+    }
+    void FixedUpdate()
+    {
+        if (destroyed)
+        {
+            Debug.Log("destroyed == true");
+        } else if (destroyed == false)
+        {
+            Debug.Log("destroyed == false");
+        }
+    }
 }
     
 
